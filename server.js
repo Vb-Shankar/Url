@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const ShortUrl = require('./client/shortUlr')
 const app = express()
 
-mongoose.connect('mongodb://localhost/urlShortener', {
+mongoose.connect('mongodb://localhost:27017/urlShortener', {
 })
 
 app.set('view engine', 'ejs')
