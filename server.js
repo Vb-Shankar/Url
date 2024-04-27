@@ -1,33 +1,63 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const ShortUrl = require('./client/shortUlr')
-const app = express()
+const express = require('express');
+const mongoose = require('mongoose');
+const ShortUrl = require('./client/shortUlr'); // Assuming ShortUrl model is in 'models' dir
 
-mongoose.connect('mongodb://localhost:27017/urlShortener', {
+const app = express();
+
+// Connect to MongoDB using environment variable for better security
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/urlShortener';
+mongoose.connect(mongoUri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
+.then(() => console.log('MongoDB connected successfully'))
+.catch(err => console.error('Error connecting to MongoDB:', err));
 
-app.set('view engine', 'ejs')
-app.use(express.urlencoded({ extended: false }))
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: false })); // Handle form data
 
+// Error handling middleware (optional but recommended)
+app.use((err, req, res, next) => {
+  console.error(err.stack); // Log errors
+  res.status(500).send('Something went wrong!'); // Generic error response
+});
+
+// Routes
 app.get('/', async (req, res) => {
-  const shortUrls = await ShortUrl.find()
-  res.render('index', { shortUrls: shortUrls })
-})
+  try {
+    const shortUrls = await ShortUrl.find();
+    res.render('index', { shortUrls });
+  } catch (err) {
+    console.error(err); // Log errors
+    res.status(500).send('Error fetching short URLs'); // User-friendly error response
+  }
+});
 
 app.post('/shortUrls', async (req, res) => {
-  await ShortUrl.create({ full: req.body.fullUrl })
-
-  res.redirect('/')
-})
+  try {
+    const newShortUrl = new ShortUrl({ full: req.body.fullUrl });
+    await newShortUrl.save();
+    res.redirect('/');
+  } catch (err) {
+    console.error(err); // Log errors
+    res.status(400).send('Invalid or duplicate URL'); // Handle bad requests
+  }
+});
 
 app.get('/:shortUrl', async (req, res) => {
-  const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl })
-  if (shortUrl == null) return res.sendStatus(404)
+  try {
+    const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl });
+    if (!shortUrl) {
+      return res.status(404).send('Not found'); // Handle non-existent URLs
+    }
+    shortUrl.clicks++;
+    await shortUrl.save();
+    res.redirect(shortUrl.full);
+  } catch (err) {
+    console.error(err); // Log errors
+    res.status(500).send('Error redirecting'); // Handle internal errors
+  }
+});
 
-  shortUrl.clicks++
-  shortUrl.save()
-
-  res.redirect(shortUrl.full)
-})
-
-app.listen(process.env.PORT || 5000,() => console.log(`Server listening.. Let's Rock ..! `));
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Server listening on port ${port}`));
