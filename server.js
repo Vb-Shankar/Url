@@ -1,15 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const ShortUrl = require('./client/shortUlr'); // Assuming ShortUrl model is in 'models' dir
+const ShortUrl = require('./client/shortUrl'); // Assuming ShortUrl model is in 'models' dir
 
 const app = express();
 
 // Connect to MongoDB using environment variable for better security
 const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/urlShortener';
-mongoose.connect(mongoUri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(mongoUri)
 .then(() => console.log('MongoDB connected successfully'))
 .catch(err => console.error('Error connecting to MongoDB:', err));
 
