@@ -5,7 +5,7 @@ const ShortUrl = require('./client/shortUlr'); // Assuming ShortUrl model is in 
 const app = express();
 
 // Connect to MongoDB using environment variable for better security
-const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/urlShortener';
+const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/urlShortener';
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -16,7 +16,7 @@ mongoose.connect(mongoUri, {
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false })); // Handle form data
 
-// Error handling middleware (optional but recommended)
+// Error handling middleware (optional but recommended) 
 app.use((err, req, res, next) => {
   console.error(err.stack); // Log errors
   res.status(500).send('Something went wrong!'); // Generic error response
