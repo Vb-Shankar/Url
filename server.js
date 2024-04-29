@@ -1,11 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const ShortUrl = require('./client/shortUrl'); // Assuming ShortUrl model is in 'models' dir
+require('dotenv').config(); // Load environment variables
 
 const app = express();
 
 // Connect to MongoDB using environment variable for better security
-const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/urlShortener';
+const mongoUri = process.env.MONGODB_URI;
 mongoose.connect(mongoUri)
 .then(() => console.log('MongoDB connected successfully'))
 .catch(err => console.error('Error connecting to MongoDB:', err));
