@@ -13,6 +13,52 @@
   }
     table {  background-color: rgba(255, 255, 255, 0.341); font-family: 'Courier New', Courier, monospace; height: 100vh; width: 100%;}
     form {  background-color: rgba(255, 255, 255, 0.341); font-family:'Times New Roman', Times, serif;}
+           #column {
+                float: left;
+                width: 33.33%;
+                min-height: 210px;
+                padding: 0 10px;
+                text-align: center
+            }
+            #row:after {
+                display: table;
+                content: "";
+                clear: both
+            }
+            .ebox {
+                margin: 30px auto 0;
+                font: 17px "source sans pro",arial;
+                color: #202020;
+                text-align: center;
+                line-height: 1.5;
+                max-width: 350px
+            }
+            section#urlbox {
+                margin: 0 auto 20px auto;
+                max-width: 758px;
+                box-shadow: 0 1px 4px #ccc;
+                border-radius: 6px;
+                padding: 10px 30px 5px;
+                background: #fff;
+                text-align: center
+            }
+
+            section#urlbox h1 {
+                margin: 10px auto 30px auto
+            }
+            section#emailbox {
+                margin: 0 auto 20px auto;
+                max-width: 758px;
+                box-shadow: 0 1px 4px #ccc;
+                border-radius: 6px;
+                padding: 10px 30px 5px;
+                background: #fff;
+                text-align: center
+            }
+
+            section#emailbox h2 {
+                margin: 15px auto 20px auto
+            }
   </style>
 <head>
   <meta charset="UTF-8">
@@ -24,12 +70,16 @@
 <body>
   <div class="container">
     <h1>URL Shortener</h1>
-    <form action="/shortUrls" method="POST" class="my-4 form-inline">
-      <label for="fullUrl" class="sr-only">Url</label>
-      <input required placeholder="Enter an Url to Shrink" type="url" name="fullUrl" id="fullUrl" class="form-control col mr-2">
-      <button class="btn btn-success" type="submit">Shrink</button>
-    </form>
-    
+    <p>
+      URL Shortener is a free tool to shorten URLs and generate short links making it easy to share them on the web ...</p>
+    <section>
+      <form action="/shortUrls" method="POST" class="my-4 form-inline">
+        <label for="fullUrl" class="sr-only">Url</label>
+        <input required placeholder="Enter an Url to Shrink" type="url" name="fullUrl" id="fullUrl" class="form-control col mr-2">
+        <button class="btn btn-success" type="submit">Shrink</button>
+      </form>  
+    </section id="urlbox">`
+    <section>
     <table class="table table-striped table-responsive" style="table-layout:auto;">
       <thead>
         <tr> 
@@ -47,8 +97,34 @@
           </tr>
         <% }) %>
       </tbody>
-      
     </table>
+  </section>
+    <div id="box">
+      <div id="row">
+          <div id="column">
+              <div class="icon">
+                  <img src="https://www.shorturl.at/img/icon-like.png"
+                  >
+              </div>
+              <h3 class="aligncenter">Easy</h3>
+              <p class="aligncenter">ShortURL is easy and fast, enter the long link to get your shortened link</p>
+          </div>
+          <div id="column">
+              <div class="icon">
+                  <img src="https://www.shorturl.at/img/icon-url.png">
+              </div>
+              <h3 class="aligncenter">Shortened</h3>
+              <p class="aligncenter">Use any link, no matter what size, ShortURL always shortens</p>
+          </div>
+          <div id="column">
+              <div class="icon">
+                  <img src="https://www.shorturl.at/img/icon-responsive.png">
+              </div>
+              <h3 class="aligncenter">Devices</h3>
+              <p class="aligncenter">Compatible with smartphones, tablets and desktop</p>
+          </div>
+      </div>
+  </div>
   </div>
 </body>
 </html>

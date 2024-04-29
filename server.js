@@ -1,23 +1,23 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const ShortUrl = require('./client/shortUrl'); // Assuming ShortUrl model is in 'models' dir
-require('dotenv').config(); // Load environment variables
+const ShortUrl = require('./client/shortUrl'); 
+require('dotenv').config(); 
 
 const app = express();
 
-// Connect to MongoDB using environment variable for better security
+// Connect to MongoDB using environment variable
 const mongoUri = process.env.MONGODB_URI;
 mongoose.connect(mongoUri)
 .then(() => console.log('MongoDB connected successfully'))
 .catch(err => console.error('Error connecting to MongoDB:', err));
 
 app.set('view engine', 'ejs');
-app.use(express.urlencoded({ extended: false })); // Handle form data
+app.use(express.urlencoded({ extended: false })); 
 
-// Error handling middleware (optional but recommended) 
+// handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack); // Log errors
-  res.status(500).send('Something went wrong!'); // Generic error response
+  console.error(err.stack); 
+  res.status(500).send('Something went wrong!'); 
 });
 
 // Routes
@@ -26,8 +26,8 @@ app.get('/', async (req, res) => {
     const shortUrls = await ShortUrl.find().limit(10).sort({$natural:-1});
     res.render('index', { shortUrls });
   } catch (err) {
-    console.error(err); // Log errors
-    res.status(500).send('Error fetching short URLs'); // User-friendly error response
+    console.error(err); 
+    res.status(500).send('Error fetching short URLs');
   }
 });
 
@@ -37,8 +37,8 @@ app.post('/shortUrls', async (req, res) => {
     await newShortUrl.save();
     res.redirect('/');
   } catch (err) {
-    console.error(err); // Log errors
-    res.status(400).send('Invalid or duplicate URL'); // Handle bad requests
+    console.error(err); 
+    res.status(400).send('Invalid or duplicate URL');
   }
 });
 
@@ -46,14 +46,14 @@ app.get('/:shortUrl', async (req, res) => {
   try {
     const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl });
     if (!shortUrl) {
-      return res.status(404).send('Not found'); // Handle non-existent URLs
+      return res.status(404).send('Not found'); 
     }
     shortUrl.clicks++;
     await shortUrl.save();
     res.redirect(shortUrl.full);
   } catch (err) {
-    console.error(err); // Log errors
-    res.status(500).send('Error redirecting'); // Handle internal errors
+    console.error(err); 
+    res.status(500).send('Error redirecting');
   }
 });
 
