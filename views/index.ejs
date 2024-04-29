@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<style>
-  body {  
-    background-image: url('https://img.freepik.com/free-photo/product-showcase-with-spotlight-black-studio-room-background-use-as-montage-product-display_1258-108941.jpg');
-    background-size: cover;
-    }
-</style>
+  <style>
+    body {  
+      background-image: url('https://img.freepik.com/free-photo/product-showcase-with-spotlight-black-studio-room-background-use-as-montage-product-display_1258-108941.jpg');
+      background-size: cover;
+      }
+    h1 {  font-family: Copperplate, Papyrus, fantasy; color: white; text-align:left;
+  }
+    table {  background-color: rgba(255, 255, 255, 0.341); font-family: 'Courier New', Courier, monospace;}
+    form {  background-color: rgba(255, 255, 255, 0.341); font-family:'Times New Roman', Times, serif;}
+  </style>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,10 +19,10 @@
 </head>
 <body>
   <div class="container">
-    <h1>URL Shrinker</h1>
+    <h1>URL Shortener</h1>
     <form action="/shortUrls" method="POST" class="my-4 form-inline">
       <label for="fullUrl" class="sr-only">Url</label>
-      <input required placeholder="Url" type="url" name="fullUrl" id="fullUrl" class="form-control col mr-2">
+      <input required placeholder="Enter an Url to Shrink" type="url" name="fullUrl" id="fullUrl" class="form-control col mr-2">
       <button class="btn btn-success" type="submit">Shrink</button>
     </form>
     
