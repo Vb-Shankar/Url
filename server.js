@@ -23,7 +23,7 @@ app.use((err, req, res, next) => {
 // Routes
 app.get('/', async (req, res) => {
   try {
-    const shortUrls = await ShortUrl.find();
+    const shortUrls = await ShortUrl.find().limit(1).sort({$natural:-1});
     res.render('index', { shortUrls });
   } catch (err) {
     console.error(err); // Log errors
