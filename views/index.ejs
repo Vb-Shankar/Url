@@ -2,16 +2,18 @@
 <html lang="en">
   <style>
     body {  
-      background-image: url("istockphoto_bg.jpg");
+      background-image: url("pr_bg.png");
       background-size: cover;
       height:100%;
         
       }
-    h1 {  font-family: Copperplate, Papyrus, fantasy; color: white; text-align:left;
+    h1 {  font-family: Copperplate, Papyrus, fantasy; color: rgb(50, 44, 44); text-align:left;
       padding-top: 50px;
       margin-top: 50px;
   }
-    table {  background-color: rgba(255, 255, 255, 0.341); font-family: 'Courier New', Courier, monospace; height: 100vh; width: 100%;}
+  p {  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: white; text-align:left;
+  }
+    table {  background-color: rgba(255, 255, 255, 0.341); font-family: 'Courier New', Courier, monospace; width: 100%;}
     form {  background-color: rgba(255, 255, 255, 0.341); font-family:'Times New Roman', Times, serif;}
            #column {
                 float: left;
@@ -33,27 +35,14 @@
                 line-height: 1.5;
                 max-width: 350px
             }
-            section#urlbox {
-                margin: 0 auto 20px auto;
-                max-width: 758px;
-                box-shadow: 0 1px 4px #ccc;
-                border-radius: 6px;
-                padding: 10px 30px 5px;
-                background: #fff;
-                text-align: center
-            }
-
-            section#urlbox h1 {
-                margin: 10px auto 30px auto
-            }
             section#emailbox {
-                margin: 0 auto 20px auto;
-                max-width: 758px;
+                margin: 10 auto 20 auto;
+                max-width: 1200px;
                 box-shadow: 0 1px 4px #ccc;
-                border-radius: 6px;
-                padding: 10px 30px 5px;
+                border-radius: 10px;
+                padding: 10px 30px 5px 30px;
                 background: #fff;
-                text-align: center
+                text-align: left
             }
 
             section#emailbox h2 {
@@ -70,17 +59,18 @@
 <body>
   <div class="container">
     <h1>URL Shortener</h1>
-    <p>
-      URL Shortener is a free tool to shorten URLs and generate short links making it easy to share them on the web ...</p>
+    <p>URL Shortener is a free tool to shorten URLs and generate short links making it easy to share them on the web ...</p>
+  
     <section>
-      <form action="/shortUrls" method="POST" class="my-4 form-inline">
+      <form id="f1" action="/shortUrls" method="POST" class="my-4 form-inline">
         <label for="fullUrl" class="sr-only">Url</label>
         <input required placeholder="Enter an Url to Shrink" type="url" name="fullUrl" id="fullUrl" class="form-control col mr-2">
-        <button class="btn btn-success" type="submit">Shrink</button>
+        <button id="s1" class="btn btn-success" type="submit">Shrink</button>
       </form>  
-    </section id="urlbox">`
-    <section>
-    <table class="table table-striped table-responsive" style="table-layout:auto;">
+  </section>
+
+    <section id="emailbox">
+    <table class="table table-striped table-responsive" style="table-layout:auto;" >
       <thead>
         <tr> 
           <th style="width: 900px;">Full URL</th>
